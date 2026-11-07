@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Form fixture 3</title><style>[role=listbox]{display:none}[role=listbox].open{display:block}</style></head><body>
+<h1>Sibling-label layout</h1><form>
+  <div class="field-row"><span class="caption">First Name</span><input id="id-827" type="text" placeholder="Given name"></div>
+  <div class="field-row"><span class="caption">First Name (archive copy)</span><input id="id-828" type="text" placeholder="First Name"></div>
+  <fieldset><legend>Gender</legend><span>Male</span><input id="g-b6" type="radio" name="who" value="male"><span>Female</span><input id="g-a2" type="radio" name="who" value="female"></fieldset>
+  <div class="field-row"><span class="caption">State</span><select id="state-dynamic" disabled><option>Choose state</option></select></div>
+  <div class="field-row"><span class="caption">Country</span><button id="country-menu" type="button" data-dropdown="true" aria-haspopup="listbox" aria-label="Country">Choose country</button><ul id="country-options" role="listbox"><li role="option">Canada</li><li role="option">United States</li></ul></div>
+</form>
+<script>
+const button=document.querySelector('#country-menu'),list=document.querySelector('#country-options'),state=document.querySelector('#state-dynamic');
+button.onclick=()=>list.classList.toggle('open');list.querySelectorAll('[role=option]').forEach(option=>option.onclick=()=>{button.textContent=option.textContent;list.classList.remove('open');state.disabled=false;state.innerHTML='<option>Choose state</option>';state.add(new Option(option.textContent==='United States'?'California':'Ontario'));});
+</script>
+</body></html>

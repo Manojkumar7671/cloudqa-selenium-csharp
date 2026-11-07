@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Form fixture 1</title></head><body>
+<h1>Sample form</h1>
+<form>
+  <div><label for="billing-given">Billing First Name</label><input id="billing-given" type="text" placeholder="First Name"></div>
+  <fieldset><legend>Gender</legend><label for="sex-x">Male</label><input id="sex-x" type="radio" name="profile-sex" value="male"><label for="sex-y">Female</label><input id="sex-y" type="radio" name="profile-sex" value="female"></fieldset>
+  <div><label for="person-given">First Name</label><input id="person-given" type="text" name="person_first"></div>
+  <div><label for="country-choice">Country</label><select id="country-choice" name="country"><option value="">Choose country</option><option>Canada</option><option>United States</option></select></div>
+  <div><label for="state-choice">State</label><select id="state-choice" name="state" disabled><option value="">Choose state</option></select></div>
+</form>
+<script>
+const country=document.querySelector('#country-choice'), state=document.querySelector('#state-choice');
+country.addEventListener('change',()=>{state.innerHTML='<option value="">Choose state</option>';state.disabled=false;if(country.value==='United States')state.add(new Option('California','CA'));else if(country.value==='Canada')state.add(new Option('Ontario','ON'));});
+</script>
+</body></html>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Form fixture 2</title><style>.menu{display:none}.menu.open{display:block}.option{cursor:pointer}</style></head><body>
+<h1>Reordered form</h1><form>
+  <label>Billing First Name <input type="text" aria-label="First Name"></label>
+  <label>State <button type="button" role="combobox" aria-haspopup="listbox" aria-label="State" aria-disabled="true">Choose state</button></label><ul id="states" role="listbox" class="menu"></ul>
+  <div><span>Country</span><button type="button" role="combobox" aria-haspopup="listbox" aria-label="Country">Choose country</button><ul id="countries" role="listbox" class="menu"><li role="option">Canada</li><li role="option">United States</li></ul></div>
+  <fieldset><legend>Gender</legend><label><input type="radio" name="new-gender" value="F">Female</label><label><input type="radio" name="new-gender" value="M">Male</label></fieldset>
+  <section><label>First Name <input type="text" name="renamed-person"></label></section>
+</form>
+<script>
+const country=document.querySelector('[aria-label="Country"]'),state=document.querySelector('[aria-label="State"]'),states=document.querySelector('#states');
+function bind(btn,menu,onChoose){btn.addEventListener('click',()=>menu.classList.toggle('open'));menu.querySelectorAll('[role="option"]').forEach(o=>o.addEventListener('click',()=>{btn.textContent=o.textContent;menu.classList.remove('open');onChoose?.(o.textContent);}));}
+bind(country,document.querySelector('#countries'),value=>{states.innerHTML='';states.classList.remove('open');state.textContent='Choose state';state.setAttribute('aria-disabled','false');({'United States':['California','New York'],'Canada':['Ontario']})[value]?.forEach(name=>{const li=document.createElement('li');li.setAttribute('role','option');li.textContent=name;states.appendChild(li);});bindDynamicState();});
+function bindDynamicState(){state.onclick=()=>states.classList.toggle('open');states.querySelectorAll('[role="option"]').forEach(o=>o.onclick=()=>{state.textContent=o.textContent;states.classList.remove('open');});}
+</script>
+</body></html>
